@@ -1,0 +1,220 @@
+/*.header{
+   margin: auto; 
+   background: linear-gradient(190deg, #baa2d4, #99438c);
+   height:auto;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    padding: 50px 50px 50px 50px;
+    font-family:cursive;
+    color: #46083d;
+}
+.Enterings{
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(190deg, #baa2d4, #99438c);
+  min-height: 100vh;
+}
+
+.header {
+  max-width: 450px;
+  margin: auto;
+  padding: 50px;
+  background: linear-gradient(135deg, #ffffffa8, #ffffff55);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin-top: 150px;
+  box-shadow: 0px 0px 25px #00000030;
+}
+
+.AddItems{
+   
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  transition: 0.2s;
+}
+
+.AddItems:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.done {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.delete {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input::placeholder {
+  background: linear-gradient(135deg, #ffffffcc, #ffffff99);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  opacity: 0.7;
+}*/
+
+/* Full page background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(190deg, #baa2d4, #99438c);
+  min-height: 100vh;
+}
+
+/* Main card */
+.header {
+  max-width: 450px;
+  margin: auto;
+  padding: 40px 30px;
+  background: linear-gradient(135deg, #ffffffc4, #ffffff71);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  margin-top: 120px;
+  box-shadow: 0px 0px 25px #00000030;
+}
+
+/* Heading */
+.title {
+  text-align: center;
+  font-family: cursive;
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #46083d;
+}
+
+/* Input + Add button row */
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+/* Input field */
+input {
+  flex: 1;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 2px solid #46083d90;
+  background: linear-gradient(135deg, #ffffffcc, #ffffff99);
+  outline: none;
+  color: black;
+}
+
+/* Placeholder color */
+input::placeholder {
+  color: black;
+  opacity: 0.7;
+}
+
+/* Add Button */
+.add-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* The list items wrapper */
+.list {
+  display: flex;
+  align-items: center;
+  gap: 10px;               /* Spacing between text, Done, Delete */
+  margin-bottom: 12px;
+}
+
+/* Task text button (left colored box) */
+.Items {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: default;
+  font-size: 15px;
+  color: white;
+}
+
+/* Done button */
+.done {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+/* Delete button */
+.delete {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+/* Responsive small screens */
+@media (max-width: 500px) {
+  .header {
+    margin-top: 40px;
+    padding: 25px 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .done,
+  .delete {
+    width: 100%;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
+}
+
+
+
