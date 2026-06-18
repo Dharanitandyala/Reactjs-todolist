@@ -51,12 +51,8 @@ alert("Account Created");
 
 }
 
-catch(error){
-
-alert(
-error.response.data.detail
-);
-
+catch(err){
+  alert(err.response?.data?.message || "Server error");
 }
 
 
@@ -103,14 +99,8 @@ getTodos();
 
 }
 
-catch(error){
-
-
-alert(
-error.response.data.detail
-);
-
-
+catch(err){
+  alert(err.response?.data?.message || "Server error");
 }
 
 
