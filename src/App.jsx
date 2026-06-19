@@ -87,7 +87,7 @@ res.data.access_token
 );
 localStorage.setItem(
 "username",
-res.data.access_token
+res.data.username
 );
 
 
@@ -100,7 +100,12 @@ getTodos();
 }
 
 catch(err){
-  alert(err.response?.data?.message || "Server error");
+
+ alert(
+   err.response?.data?.detail 
+   || "Server error"
+ );
+
 }
 
 
