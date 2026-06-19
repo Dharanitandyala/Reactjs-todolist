@@ -52,7 +52,12 @@ alert("Account Created");
 }
 
 catch(err){
-  alert(err.response?.data?.message || "Server error");
+
+alert(
+err.response?.data?.detail ||
+"Server error"
+);
+
 }
 
 
@@ -94,7 +99,9 @@ res.data.username
 setLogin(true);
 
 
-getTodos();
+if(login){
+ getTodos();
+}
 
 
 }
