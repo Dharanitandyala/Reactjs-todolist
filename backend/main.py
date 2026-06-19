@@ -14,15 +14,11 @@ import schemas
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-    "https://reactjs-todolist-2zwm.vercel.app",
-    "http://localhost:5173"
-],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # create tables
 models.Base.metadata.create_all(bind=engine)
 
