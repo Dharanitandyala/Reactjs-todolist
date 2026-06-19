@@ -12,14 +12,12 @@ import schemas
 
 
 app = FastAPI()
-origins = [
-    "https://reactjs-todolist-2zwm.vercel.app",
-    "http://localhost:5173"
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+    "https://reactjs-todolist-2zwm.vercel.app",
+    "http://localhost:5173"
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,6 +26,101 @@ app.add_middleware(
 # create tables
 models.Base.metadata.create_all(bind=engine)
 
+@app.post("/signup")
+def signup(
+    user: UserCreate,
+    db: Session = Depends(get_db)
+):
+
+    existing_user = db.query(User)\
+        .filter(User.email == user.email)\
+        .first()
+
+
+    if existing_user:
+
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+
+
+    new_user = User(
+
+        username=user.username,
+
+        email=user.email,
+
+        hashed_password=
+        hash_password(user.password)
+
+    )
+
+
+    db.add(new_user)
+
+    db.commit()
+
+    db.refresh(new_user)
+
+
+    return {
+
+        "message":"Account created successfully"
+
+    }
+@app.post("/login")
+def login(
+    user: UserLogin,
+    db: Session = Depends(get_db)
+):
+
+    db_user = db.query(models.User)\
+        .filter(models.User.email == user.email)\
+        .first()
+
+
+
+    if db_user is None:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Account not found"
+        )
+
+
+
+    if not verify_password(
+        user.password,
+        db_user.hashed_password
+    ):
+
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect password"
+        )
+
+
+
+    token=create_access_token(
+
+        {
+            "sub":db_user.email
+        }
+
+    )
+
+
+
+    return {
+
+        "access_token":token,
+
+        "token_type":"bearer",
+
+        "username":db_user.username
+
+    }
 
 @app.post("/todos", response_model=schemas.TodoResponse)
 def create_todo(
@@ -201,98 +294,3 @@ def complete_todo(
 
 
     return todo
-@app.post("/signup")
-def signup(
-    user: UserCreate,
-    db: Session = Depends(get_db)
-):
-
-    existing_user = db.query(User)\
-        .filter(User.email == user.email)\
-        .first()
-
-
-    if existing_user:
-
-        raise HTTPException(
-            status_code=400,
-            detail="Email already registered"
-        )
-
-
-    new_user = User(
-
-        username=user.username,
-
-        email=user.email,
-
-        hashed_password=
-        hash_password(user.password)
-
-    )
-
-
-    db.add(new_user)
-
-    db.commit()
-
-    db.refresh(new_user)
-
-
-    return {
-
-        "message":"Account created successfully"
-
-    }
-@app.post("/login")
-def login(
-    user: UserLogin,
-    db: Session = Depends(get_db)
-):
-
-    db_user = db.query(models.User)\
-        .filter(models.User.email == user.email)\
-        .first()
-
-
-
-    if db_user is None:
-
-        raise HTTPException(
-            status_code=404,
-            detail="Account not found"
-        )
-
-
-
-    if not verify_password(
-        user.password,
-        db_user.hashed_password
-    ):
-
-        raise HTTPException(
-            status_code=401,
-            detail="Incorrect password"
-        )
-
-
-
-    token=create_access_token(
-
-        {
-            "sub":db_user.email
-        }
-
-    )
-
-
-
-    return {
-
-        "access_token":token,
-
-        "token_type":"bearer",
-
-        "username":db_user.username
-
-    }
