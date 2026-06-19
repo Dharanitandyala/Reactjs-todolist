@@ -28,43 +28,53 @@ def signup(
     db: Session = Depends(get_db)
 ):
 
-    existing_user = db.query(User)\
-        .filter(User.email == user.email)\
-        .first()
+    try:
+
+        existing_user = db.query(User)\
+            .filter(User.email == user.email)\
+            .first()
 
 
-    if existing_user:
+        if existing_user:
 
-        raise HTTPException(
-            status_code=400,
-            detail="Email already registered"
+            raise HTTPException(
+                status_code=400,
+                detail="Email already registered"
+            )
+
+
+        new_user = User(
+
+            username=user.username,
+
+            email=user.email,
+
+            hashed_password=
+            hash_password(user.password)
+
         )
 
 
-    new_user = User(
+        db.add(new_user)
 
-        username=user.username,
+        db.commit()
 
-        email=user.email,
-
-        hashed_password=
-        hash_password(user.password)
-
-    )
+        db.refresh(new_user)
 
 
-    db.add(new_user)
-
-    db.commit()
-
-    db.refresh(new_user)
+        return {
+            "message":"Account created successfully"
+        }
 
 
-    return {
+    except Exception as e:
 
-        "message":"Account created successfully"
+        db.rollback()
 
-    }
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
 @app.post("/login")
 def login(
     user: UserLogin,
