@@ -22,16 +22,11 @@ pwd_context = CryptContext(
 )
 
 
-
-# convert password -> hashed password
 def hash_password(password: str):
 
     return pwd_context.hash(password)
 
 
-
-
-# compare login password with hashed password
 def verify_password(
     plain_password,
     hashed_password
@@ -41,10 +36,6 @@ def verify_password(
         plain_password,
         hashed_password
     )
-
-
-
-
 # create JWT token
 def create_access_token(data: dict):
 
